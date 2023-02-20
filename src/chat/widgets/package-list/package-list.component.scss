@@ -1,0 +1,11 @@
+.widget-package-list {
+	background-color: var(--dss_white);
+	color: var(--dss_black);
+
+	.excess-package-container {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		margin-top: 0.75rem;
+	}
+}

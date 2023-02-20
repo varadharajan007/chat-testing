@@ -1,0 +1,29 @@
+.widget-image {
+	height: 5.333rem !important;
+	object-fit: contain;
+	width: 4.25rem !important;
+}
+
+.widget-image-strip {
+	gap: 0.3rem;
+}
+
+.circle {
+	align-items: center;
+	background: var(--dss_white);
+	border: 0.15rem solid var(--cardinal);
+	color: var(--cardinal);
+	font-size: 0.75rem;
+	height: 1.5rem;
+	min-width: 1.5rem;
+}
+
+.status-circle {
+	background-color: var(--dss_white);
+	border: 1px solid var(--cardinal);
+	color: var(--cardinal);
+	font-size: 0.75rem;
+	left: 3rem;
+	min-width: 1.3rem;
+	top: 4.2rem;	
+}

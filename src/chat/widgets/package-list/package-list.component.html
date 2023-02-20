@@ -1,0 +1,16 @@
+<div class="widget-package-list container p-2" data-component-id="packageGroupListWidget" *ngIf="packageGroupList?.length">
+   
+    <div class="widget-package-group" data-component-id="PackageGroupListContainer" *ngFor="let packageGroupDetail of packageGroupList; let index=index">
+        <dss-package-details data-component-id="PackageGroupDetail" [packageDetailsWidgetOptions]="packageGroupDetail" [packageCount]="index"></dss-package-details>
+    </div>
+    <ng-container *ngIf="totalpackageCount > 5">
+    <div class="excess-package-container" *ngIf="remainingCount > 1 ; else singlePackage">
+        <h6 data-component-id="ExcessPackageMessage" class="mb-0"> +{{remainingCount}} {{'more_TC' | translate}} {{'packages_TC'| translate}} </h6>
+    </div>
+    <ng-template #singlePackage>
+    <div class="excess-package-container">
+        <h6 data-component-id="SinglePackageMessage" class="mb-0"> +{{remainingCount}} {{'more_TC' | translate}} {{ 'package_TC' | translate}} </h6>
+    </div>
+    </ng-template>
+</ng-container>
+</div>

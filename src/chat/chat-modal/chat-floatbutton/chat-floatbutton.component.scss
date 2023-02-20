@@ -1,0 +1,50 @@
+//Call button new design
+.semi-transparent-button {
+	background: var(--cardinal);
+	border-radius: 100%;
+	color: var(--dss_white);
+	height: 4rem;
+	right: 1.5rem;
+	width: 4rem !important;
+	
+}
+
+.return-button-section {
+	bottom: 9rem;
+}
+  
+.button-section {
+	bottom: 1.5rem;
+}
+
+.modal-container {
+	background-color: var(--dss_white);
+	right: 0.25rem;
+	width: 94%;
+}
+
+.return-modal-section {
+	bottom: 8rem;
+	height: 72%;
+}
+
+.modal-section {
+	bottom: 0;
+	height: 90%;
+}
+
+.spinner-border {
+	right: 12rem;
+	top: 50%;
+}
+
+.top-align-cross {
+	margin-left: 0.2rem;
+	margin-top: 1.2rem !important;
+}
+
+@media only screen and (min-device-width: 768px) {
+	.modal-section {
+		height: 75%;
+	}
+}

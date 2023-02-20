@@ -1,0 +1,18 @@
+<div class="widget-image-strip d-flex" data-component-id="ImageStripWidget">
+<ng-container *ngFor="let img of widgetImageList">
+   <div class='icon-container position-relative' data-component-id="ImageItem">
+        <img data-component-id="Image"  [src]="img?.SmallImageURI" [alt]="img?.ItemShortDescription" class="widget-image" *ngIf="img?.SmallImageURI;else imageNotAvailable" />
+        <ng-template #imageNotAvailable>
+            <img class="widget-image no-image border" alt="Item Image is not available" src="./assets/img/ImageUnavailable.png">
+        </ng-template>
+        <div class="status-circle d-flex justify-content-center position-absolute rounded-circle" *ngIf="img?.Quantity > 1" data-component-id="QuantityBadge">
+            <span *ngIf="img?.Quantity" data-component-id="Quantity" class="qty"> {{ img?.Quantity }} </span>
+        </div>
+      </div>
+</ng-container>
+
+<span *ngIf="restImageCount" class="circle rounded-circle d-flex justify-content-center mt-4" data-component-id="ExcessQuantityBadge">
+    +{{restImageCount}}
+</span>
+
+</div>

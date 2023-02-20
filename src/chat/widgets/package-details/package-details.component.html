@@ -1,0 +1,21 @@
+<div class="widget-package-detail" data-component-id="PackageDetailWidget">
+    <div>
+        <span *ngIf="!(packageDetailsWidgetOptions?.Status==='Delivered' || packageDetailsWidgetOptions?.Status==='Shipped')"
+         data-component-id="ShippingInfo" class="widget-color"> {{getOrderWidgetStatusLabel(packageDetailsWidgetOptions?.Status)}} 
+        </span>
+        <span *ngIf="(packageDetailsWidgetOptions?.Status==='Delivered' || packageDetailsWidgetOptions?.Status==='Shipped')" 
+        data-component-id="PackageInfo" class="widget-color"> {{'package_TC' | translate}} {{packageCount ? packageCount : ''}}
+        </span>
+        <p *ngIf="(packageDetailsWidgetOptions?.Status==='Delivered' || packageDetailsWidgetOptions?.Status==='Shipped') &&
+            packageDetailsWidgetOptions?.ETA != null " data-component-id="ETA" class="font-weight-bold"> 
+           {{getOrderStatusPrefix(packageDetailsWidgetOptions?.Status) }} {{ packageDetailsWidgetOptions?.ETA | date : 'MMMM d' }}
+        </p>
+    </div>
+    <dss-image-strips *ngIf="packageDetailsWidgetOptions?.ImageStripe" data-component-id="ItemsList"
+        [imageStripWidgetOptions]="packageDetailsWidgetOptions?.ImageStripe!"></dss-image-strips>
+    
+
+</div>
+<!-- <ng-template #etaNotAvailable>
+   <p data-component-id="ErrorETAText"> {{'etaNotAvailable_SC' | translate}} </p>
+</ng-template> -->

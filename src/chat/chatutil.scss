@@ -1,0 +1,50 @@
+.incoming-message {
+	background-color: var(--lightgrey);
+	border-radius: 0.6rem;
+}
+
+.outgoing-message {
+	background-color: var(--cardinal);
+	border-radius: 0.6rem;
+	color: var(--dss_white);
+	max-width: fit-content;
+}
+
+.message-reply-textarea {
+	line-height: 2.75rem;
+
+	textarea {
+		height: 100%;
+		outline: none;
+		resize: none;
+		width: 85% !important;
+	}
+}
+
+.combined-widget {   
+	border-radius: 0.3rem;
+	margin-bottom: 0.5rem;
+	margin-left: 3rem;
+	width: 76%;
+
+	.widget {
+		margin: 0.5rem 0;
+	}
+
+	.btn-widget {
+		border-radius: 10rem !important;
+		margin-top: 1rem !important;
+		width: 100% !important;
+	}
+
+}
+
+.hover-effect {
+	cursor: pointer;
+}
+
+.pointer-disable {
+	cursor: not-allowed;
+}
+
+

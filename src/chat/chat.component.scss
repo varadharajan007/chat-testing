@@ -1,0 +1,115 @@
+.card-header { 
+	padding: 0.5rem 0.8rem;
+}
+
+.chat-wrapper {
+	bottom: 0;
+	display: flex;
+	flex-flow: row wrap;
+	flex-direction: column;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.chat-body {
+	flex: 6;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.alert {
+	border-radius: 2.25rem !important;
+	margin: 0.5rem 5.5rem !important;
+	padding: 0.3rem 1rem !important;
+}
+	
+.connecting-spinner > div {
+	background-color: rgb(0, 0, 0) !important;
+	height: 1.1rem !important;
+	margin-top: 5rem;
+	width: 1.1rem !important;
+}
+	  
+.spinner > div {
+	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	background-color: rgb(255, 255, 255);
+	border-radius: 100%;
+	display: inline-block;
+	height: 0.5rem;
+	width: 0.5rem;
+}
+	
+.spinner .bounce1 {
+	animation-delay: -0.32s;
+}
+	  
+.spinner .bounce2 {
+	animation-delay: -0.16s;
+}
+
+.alert-section {
+	margin-top: 6rem;
+	text-align: center;
+}
+
+.new-widget {
+	max-height: 6.4rem;
+	overflow: auto;
+
+	.btn { 
+		border-radius: 1rem !important; 
+	}
+
+	.btn-space {
+		width: auto !important;
+	}
+}
+
+.row-list {
+	.alert {
+		border-radius: 2.25rem !important;
+		margin: 0.5rem 5.5rem !important;
+		padding: 0.3rem 1rem !important;
+	}
+
+	.img-widget {
+		max-height: 20rem;
+	}		
+}
+
+.row-list .updated-time {
+	color: var(--charcoal) !important;
+	font-size: 0.8rem !important;
+}
+	  
+@keyframes sk-bouncedelay {
+	0%,
+	80%,
+	100% { 
+		transform: scale(0);
+	}
+	
+	40% { 
+		transform: scale(1);
+	}
+}
+
+textarea:disabled {
+	cursor: not-allowed !important;
+}
+
+.alphabetical-circle {
+	align-self: flex-end;
+	background-color: var(--dss_black);
+	color: var(--bdy-bg-clr);
+	height: 2.2rem;
+	line-height: 2rem;
+}
+
+.alphabetical-circle-font {
+	padding: 0 0.8rem;
+}
+
+

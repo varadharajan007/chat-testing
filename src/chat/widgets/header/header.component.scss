@@ -1,0 +1,15 @@
+.widget-header {
+	background-color: var(--cardinal);
+	color: var(--dss_white);
+}
+
+.widget-button {
+	svg {
+		fill: var(--dss_white);
+	}
+}
+
+.widget-order {
+	color: var(--dss_white);
+	text-decoration: underline;
+}

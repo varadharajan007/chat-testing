@@ -1,0 +1,18 @@
+.widget-package-detail {
+	background-color: var(--dss_white);
+	color: var(--dss_black);
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-bottom: 1rem;
+}
+
+.widget-image-strip {
+	display: flex;
+	flex-direction: row;
+	gap: 0.8rem;
+}
+
+.widget-color {
+	color: var(--charcoal);
+}

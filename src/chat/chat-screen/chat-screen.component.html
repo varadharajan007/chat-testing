@@ -1,0 +1,65 @@
+  <section data-component-id="DssChatScreen" class="mx-auto">
+    <div class="container py-3 shadow-sm max-width">
+    <div class="row align-item-center">
+      <div class="col-4">
+        <img src="assets/img/bars-light.svg" alt="menubar">
+        <img class="ml-3" src="assets/img/search-light.svg" alt="search">
+      </div>
+      <div class="col-4 logo text-center pl-0">
+        <img src="assets/img/spacer.png" alt="Retailer's Logo" title="logo" />     
+       </div>
+      <div class="col-4 text-right">
+        <img class="mr-3" src="assets/img/user-light.svg" alt="user">
+        <img src="assets/img/shopping-bag-light.svg" alt="bag">
+      </div>
+    </div>
+    </div>
+    <div class="container max-width">
+    <div class="row p-3" *ngIf="!isLoading && chatBotConfigEnabled; else errorPage">
+        <div class="col-12">
+          <h1 class="text-center">{{'shopNewArrivals_TC' | translate}} </h1>
+      </div>
+      </div>
+    </div>
+
+     <div class="container-fluid text-break">
+       <div class="row">
+          <div class="col-md-4 col-lg-4 col-xs-6 border-0 py-2">
+            <img class="card-img-top" src="assets/img/one_1.png" alt="image1">
+            <div class="border-0">
+              <h2 class="title">FOR EVERYWHERE YOU’RE HEADED</h2>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-4 col-xs-6 border-0 py-2">
+            <div class="border-0">
+              <h2 class="title text-right">PICK THE PERFECT PAIR</h2>
+            </div>
+            <img class="card-img-bottom" src="assets/img/three_3.png" alt="image2">
+          </div>
+
+          <div class="col-md-4 col-lg-4 col-xs-6 border-0 py-2">
+            <img class="card-img-top" src="assets/img/two_2.png" alt="image3">
+            <div class="border-0">
+              <h2 class="title">CELEBRATE LOVE</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="!isLoading && chatBotConfigEnabled">
+    <dss-chat-floatbutton></dss-chat-floatbutton>
+  </section>
+
+<ng-template #errorPage>
+  <div class="error-msg my-3 p-3 text-center" *ngIf="!isLoading && errorMessage">{{errorMessage | translate}}</div>
+  <div class="return-loader position-fixed" *ngIf="isLoading">
+    <div class="row">
+      <p class="m-2">{{'loading_TC' | translate}}</p>
+        <div class="spinner-border text-dark" role="status">
+          <span class="sr-only">{{'loading_UC' | translate}}...</span>
+        </div>
+    </div>
+  </div>
+</ng-template>
