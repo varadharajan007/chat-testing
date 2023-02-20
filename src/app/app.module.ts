@@ -9,6 +9,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ChatComponent } from '../chat/chat.component';
 import { ChatModule } from '../chat/chat.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatResolver } from '../chat/services/chat-resolver.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,13 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
-      { path: 'chat', component: ChatComponent },
+      {
+        path: 'chat',
+        component: ChatComponent,
+        resolver: {
+          isChatEnabled: ChatResolver,
+        },
+      },
     ]),
   ],
   declarations: [AppComponent, TopBarComponent, ProductListComponent],

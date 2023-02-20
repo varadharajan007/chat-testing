@@ -9,11 +9,10 @@ const routes: Routes = [
   {
     path: '',
     component: ChatComponent,
-    resolve: {
+    resolver: {
       isChatEnabled: ChatResolver,
     },
   },
-  { path: 'dsschat', component: ChatScreenComponent },
 ];
 
 @NgModule({
