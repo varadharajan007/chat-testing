@@ -17,6 +17,7 @@ import { WidgetsMock } from './models/widgets.mock';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChatService } from './services/chat.service';
 import * as _ from 'lodash';
+import { ManhClient } from './client-sdk/manh-client';
 
 @Component({
   selector: 'dss-chat',
@@ -163,7 +164,7 @@ export class ChatComponent
 
   fetchConversations(): void {
     this.chatStarted = new Date();
-    (<any>window).ManhClient.initialize({
+    ManhClient.initialize({
       accessToken: this.token,
       conversationId: this.conversationId,
       registeredCustomerId: this.registeredCustomerId,
@@ -428,7 +429,7 @@ export class ChatComponent
     }
   }
   chatWindowMinimize(): any {
-    (<any>window).ManhClient.minimize(this.minimize);
+    ManhClient.minimize(this.minimize);
   }
   onEndSession(): any {
     this.disableReplyActions = true;
