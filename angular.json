@@ -20,12 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
-            "scripts": [
-              {
-                "input": "https://raw.githubusercontent.com/varadharajan007/test-chat-client/main/manh-chat-client-1.0.0.min.js",
-                "bundleName": "testing"
-              }
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
