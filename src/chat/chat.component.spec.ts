@@ -1,5 +1,4 @@
 // import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-// import { ManhClient } from './client-sdk/manh-client';
 // import { ChatComponent } from './chat.component';
 // import { RouterTestingModule } from '@angular/router/testing';
 // import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +6,6 @@
 // import { observable, of } from 'rxjs';
 // import * as EventEmitter from 'events';
 // import { ChatService } from './services/chat.service';
-
 
 // const activatedRouteMock = {
 //   queryParams: of({}),

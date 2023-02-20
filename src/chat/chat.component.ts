@@ -1,14 +1,20 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef, ViewChild, ElementRef, AfterViewChecked, OnDestroy, AfterContentChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+  OnDestroy,
+  AfterContentChecked,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ManhClient } from './client-sdk/manh-client';
 import { ChatEventConstants } from './models/chatevent-constants';
 import { ChatConstants } from './models/chat-constants';
 import { Subscription } from 'rxjs';
 import { WidgetsMock } from './models/widgets.mock';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SelfServiceConstants } from '../core/util/selfservice-constants';
-import { RequestParam } from '../core/services/request-param.model';
-import { TranslatePipe } from '../core/pipes/translate/translate.pipe';
 import { ChatService } from './services/chat.service';
 import * as _ from 'lodash';
 
@@ -16,9 +22,10 @@ import * as _ from 'lodash';
   selector: 'dss-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', './chatutil.scss'],
-  providers: [TranslatePipe]
 })
-export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked {
+export class ChatComponent
+  implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked
+{
   loading = true;
   messages: any = [];
   conversation: any;
@@ -58,22 +65,20 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
   sophiaChat: any;
   minimize = false;
 
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
     private changeDetectorRef: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
-    private translate: TranslatePipe,
     private chatservice: ChatService
   ) {
-    this.queryParamSubscription = this.route.queryParams.subscribe(params => {
+    this.queryParamSubscription = this.route.queryParams.subscribe((params) => {
       this.token = params[ChatConstants.TOKEN];
       this.mode = params[ChatConstants.MODE];
       this.conversationId = params[ChatConstants.CONVERSATION_ID];
       this.registeredCustomerId = params[ChatConstants.REGISTERED_CUSTOMER_ID];
-      this.locale = params[SelfServiceConstants.LOCALE];
+      this.locale = params['Locale'];
       this.orgId = params[ChatConstants.ORG_ID];
 
       // TODO to remove below code once we move out of iframe within selfserve app -
@@ -84,7 +89,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
       }
       this.initializeChatWindow();
     });
-
   }
 
   ngOnInit(): void {
@@ -110,26 +114,31 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
     this.isChatEnabled();
   }
 
-
   isChatEnabled(): void {
     if (this.orgId) {
-      this.requestParam = { orgId: this.orgId, token: this.token, conversationId: this.conversationId };
+      this.requestParam = {
+        orgId: this.orgId,
+        token: this.token,
+        conversationId: this.conversationId,
+      };
     }
     this.isChatConfigLoaded = false;
-    this.chatservice.getChatConfig(this.requestParam).subscribe(response => {
-      this.chatBotConfigEnabled = response?.data?.EnableAssistant;
-      if (this.chatBotConfigEnabled) {
-        this.loadConversations();
-      } else {
-        this.errorMessage = this.translate.transform('chatbotComingSoon_TC');
+    this.chatservice.getChatConfig(this.requestParam).subscribe(
+      (response) => {
+        this.chatBotConfigEnabled = response?.data?.EnableAssistant;
+        if (this.chatBotConfigEnabled) {
+          this.loadConversations();
+        } else {
+          this.errorMessage = 'chatbotComingSoon_TC';
+        }
+        this.isChatConfigLoaded = true;
+      },
+      (error) => {
+        this.chatBotConfigEnabled = false;
+        this.errorMessage = 'unableToProcessRequest_TC';
+        this.isChatConfigLoaded = true;
       }
-      this.isChatConfigLoaded = true;
-    }, (error) => {
-
-      this.chatBotConfigEnabled = false;
-      this.errorMessage = this.translate.transform('unableToProcessRequest_TC');
-      this.isChatConfigLoaded = true;
-    });
+    );
   }
 
   loadConversations(): void {
@@ -142,19 +151,21 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
 
   fetchConversations(): void {
     this.chatStarted = new Date();
-    ManhClient.initialize({
-      accessToken: this.token, conversationId: this.conversationId, registeredCustomerId: this.registeredCustomerId,
+    (<any>window).ManhClient.initialize({
+      accessToken: this.token,
+      conversationId: this.conversationId,
+      registeredCustomerId: this.registeredCustomerId,
       onConversationLoaded: (conversation: any, error: any) => {
         this.ngZone.run(() => {
           if (error) {
-            this.errorMessage = this.translate.transform(error);
+            this.errorMessage = 'error';
           } else {
             this.conversation = conversation;
             this.loading = false;
             this.disableReplyActions = false;
             this.disableScrollDown = false;
             if (this.conversation) {
-              const titleString = this.translate.transform('sophiaChat_TC');
+              const titleString = 'sophiaChat_TC';
               this.sophiaChat = titleString.charAt(0);
               this.displayWelcomeText();
               this.fetchMessages();
@@ -178,20 +189,20 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
       onConnected: (state: any) => {
         this.initialLoading = false;
         if (state === 'connected') {
-          this.connectionStatus = this.translate.transform('connected_TC');
+          this.connectionStatus = 'connected_TC';
         } else if (state === 'connecting') {
-          this.connectionStatus = this.translate.transform('connecting_TC');
+          this.connectionStatus = 'connecting_TC';
         } else if (state === 'disconnecting') {
-          this.connectionStatus = this.translate.transform('disconnecting_TC');
+          this.connectionStatus = 'disconnecting_TC';
         } else if (state === 'disconnected') {
-          this.connectionStatus = this.translate.transform('disconnected_TC');
+          this.connectionStatus = 'disconnected_TC';
         } else if (state === 'denied') {
-          this.connectionStatus = this.translate.transform('denied_TC');
+          this.connectionStatus = 'denied_TC';
         }
         this.connected = state === 'connected';
-        this.connecting = (state === 'connecting' || state === 'connected');
+        this.connecting = state === 'connecting' || state === 'connected';
         this.changeDetectorRef.detectChanges();
-      }
+      },
     });
   }
 
@@ -201,36 +212,38 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
   }
   displayWelcomeText(): void {
     if (this.displayWelcomeMessage) {
-      this.conversation.sendMessage(this.translate.transform('__startSession__Hi'));
+      this.conversation.sendMessage('__startSession__Hi');
       this.displayWelcomeMessage = false;
     }
   }
 
   displayMainMenuChips(): void {
-    this.chatservice.getChatFeatureConfig(this.requestParam, true).subscribe(response => {
-      const featureConfigList = response?.data || [];
-      const featureIdList: any = [];
-      if (featureConfigList) {
-        featureConfigList.forEach((featureConfig: any) => {
-          if (featureConfig?.FeatureId) {
-            featureIdList.push(featureConfig?.FeatureId);
-          }
-        });
-      }
-      const chipObject = {
-        body: '__widget__',
-        attributes: {
-          type: 'widget',
-          widget: [
-            {
-              widgetType: 'chip',
-              options: JSON.stringify(featureIdList),
-            },
-          ],
-        },
-      };
-      this.conversation._addMessage(chipObject);
-    });
+    this.chatservice
+      .getChatFeatureConfig(this.requestParam, true)
+      .subscribe((response) => {
+        const featureConfigList = response?.data || [];
+        const featureIdList: any = [];
+        if (featureConfigList) {
+          featureConfigList.forEach((featureConfig: any) => {
+            if (featureConfig?.FeatureId) {
+              featureIdList.push(featureConfig?.FeatureId);
+            }
+          });
+        }
+        const chipObject = {
+          body: '__widget__',
+          attributes: {
+            type: 'widget',
+            widget: [
+              {
+                widgetType: 'chip',
+                options: JSON.stringify(featureIdList),
+              },
+            ],
+          },
+        };
+        this.conversation._addMessage(chipObject);
+      });
   }
 
   updateTypingIndicator(response: any): void {
@@ -249,14 +262,19 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
 
   onChipClick(id: any): void {
     if (this.conversation) {
-      const translateMessage = this.translate.transform(id);
+      const translateMessage = id;
       this.conversation.sendMessage(translateMessage);
     }
     this.displayChips = false;
   }
 
   onFileInput($event: any): void {
-    if ($event && $event.target && $event.target.files && $event.target.files.length > 0) {
+    if (
+      $event &&
+      $event.target &&
+      $event.target.files &&
+      $event.target.files.length > 0
+    ) {
       this.formData.append('files', $event.target.files[0]);
       this.conversation.sendMessage(this.formData);
       this.formData = new FormData();
@@ -269,15 +287,17 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
     }
     try {
       if (this.myScrollContainer) {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+        this.myScrollContainer.nativeElement.scrollTop =
+          this.myScrollContainer.nativeElement.scrollHeight;
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 
   onScroll(): void {
     const element = this.myScrollContainer.nativeElement;
-    const atBottom = (Math.ceil(element.scrollTop)) >= (element.scrollHeight - element.offsetHeight);
+    const atBottom =
+      Math.ceil(element.scrollTop) >=
+      element.scrollHeight - element.offsetHeight;
     if (atBottom) {
       this.disableScrollDown = false;
     } else {
@@ -292,8 +312,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
     if (e.keyCode === 13) {
       e.preventDefault();
       this.onSend();
-    }
-    else {
+    } else {
       if (this.conversation) {
         this.conversation.typing();
       }
@@ -306,18 +325,27 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
 
   getMessageBubbleClassName(index: any, senderType: any): string {
     if (this.showMessageTime(index)) {
-      return (senderType !== 'customer') ? 'bubble' : 'bubble';
+      return senderType !== 'customer' ? 'bubble' : 'bubble';
     }
     return '';
   }
   showMessageTime(index: any): boolean {
     if (this.messages && this.messages.length > index) {
-      if (this.messages[index] && this.messages[index + 1] && (this.messages[index].senderType === this.messages[index + 1].senderType)) {
-        if (this.messages[index + 1]?.attributes?.widget?.length
-          && this.messages[index + 1]?.attributes?.widget[0]?.widgetType === 'chip') {
+      if (
+        this.messages[index] &&
+        this.messages[index + 1] &&
+        this.messages[index].senderType === this.messages[index + 1].senderType
+      ) {
+        if (
+          this.messages[index + 1]?.attributes?.widget?.length &&
+          this.messages[index + 1]?.attributes?.widget[0]?.widgetType === 'chip'
+        ) {
           return true;
         }
-        return this.compareTimestamp(this.messages[index].dateUpdated, this.messages[index + 1].dateUpdated);
+        return this.compareTimestamp(
+          this.messages[index].dateUpdated,
+          this.messages[index + 1].dateUpdated
+        );
       }
     }
     return true;
@@ -333,7 +361,10 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
   }
 
   showChipWidget(): any {
-    if (this.messages.length >= 1 && this.messages[0]?.attributes?.widget?.length) {
+    if (
+      this.messages.length >= 1 &&
+      this.messages[0]?.attributes?.widget?.length
+    ) {
       const widgetType = this.messages[0]?.attributes?.widget[0]?.widgetType;
       if (widgetType === 'chip') {
         this.chipsWidget = this.messages[0]?.attributes?.widget[0]?.options;
@@ -352,7 +383,11 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
     const jsonString = chipWidget?.length && chipWidget[0]?.options;
     if (jsonString) {
       const chiplist = this.getDialogFlowJson(jsonString);
-      if (chiplist && chiplist[0]?.FeatureId && !_.isEqual(chiplist, this.chipsWidget)) {
+      if (
+        chiplist &&
+        chiplist[0]?.FeatureId &&
+        !_.isEqual(chiplist, this.chipsWidget)
+      ) {
         this.displayChips = true;
         this.chipsWidget = [];
         this.chipsWidget = chiplist;
@@ -364,8 +399,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
   getDialogFlowJson(jsonString: string): any {
     // Dialog flow is returning array of object without [], to support we have below json String conversion for getJSONObj arguments
     if (jsonString) {
-      return (jsonString[0] === '[') ? this.getJSONObj(jsonString) :
-        this.getJSONObj('[' + jsonString.replace(/}{(?=([^"]*"[^"]*")*[^"]*$)/g, '},{') + ']');
+      return jsonString[0] === '['
+        ? this.getJSONObj(jsonString)
+        : this.getJSONObj(
+            '[' +
+              jsonString.replace(/}{(?=([^"]*"[^"]*")*[^"]*$)/g, '},{') +
+              ']'
+          );
     }
   }
   getJSONObj(jsonString: string): any {
@@ -376,7 +416,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
     }
   }
   chatWindowMinimize(): any {
-    ManhClient.minimize(this.minimize);
+    (<any>window).ManhClient.minimize(this.minimize);
   }
   onEndSession(): any {
     this.disableReplyActions = true;
@@ -393,3 +433,35 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked, After
   }
 }
 
+export class RequestParam {
+  orgId?: string;
+  token?: string;
+  locale?: string;
+  orderId?: string;
+  orderType?: string;
+  localeId?: string;
+  bundleNames?: string;
+  locationId?: string;
+  grpDateFormat?: string;
+  query?: string;
+  page?: string;
+  size?: string;
+  sort?: string;
+  postalCode?: string;
+  countryCode?: string;
+  city?: string;
+  state?: string;
+  radius?: number;
+  radiusUOM?: string;
+  userId?: string;
+  bundlesName?: string;
+  selfServiceConfigId?: string;
+  cartId?: string;
+  isShort?: boolean;
+  conversationId?: string;
+  condition?: string;
+  packVersion?: string;
+  extensionPackId?: string;
+  CountryId?: string;
+  isGiftReturn?: string;
+}
