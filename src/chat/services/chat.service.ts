@@ -35,10 +35,8 @@ export class ChatService {
 
   public getChatConfig(requestParams: RequestParam): Observable<any> {
     const headers = this.utilService.getHeader();
-    const params = this.utilService.getParam(requestParams);
     return this.http.get(ServiceUrlConstants.GET_VIRTUALASSISTANT_CONFIG, {
       headers,
-      params,
     });
   }
 
