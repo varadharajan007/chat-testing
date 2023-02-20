@@ -21,9 +21,10 @@
     "rxjs": "6.5.3",
     "src": "^1.1.2",
     "tslib": "1.10.0",
-    "@twilio/conversations": "1.1.0",
     "web-animations-js": "2.3.2",
-    "zone.js": "0.9.1"
+    "zone.js": "0.9.1",
+    "@twilio/conversations": "1.1.0",
+    "@twilio/voice-sdk": "2.0.1"
   },
   "scripts": {
     "ng": "ng",
