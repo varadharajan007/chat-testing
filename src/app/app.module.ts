@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ChatComponent } from '../chat/chat.component';
+import { ChatModule } from '../chat/chat.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    ChatModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
       { path: 'chat', component: ChatComponent },

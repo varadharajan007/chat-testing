@@ -1,21 +1,56 @@
 <div class="p-2 widget-header rounded-top" data-component-id="HeaderWidget">
-    <span *ngIf="headerWidgetOptions?.orderId" data-component-id="OrderIdLabel" class="mr-1 align-middle">{{'order_TC' | translate}}</span>
-    <span>
-    <a *ngIf="headerWidgetOptions?.button" data-component-id="Button" type="button" [href]="getTrackingUrl(headerWidgetOptions?.button?.url)"
-        [target]="headerWidgetOptions?.button?.target" class="widget-button" aria-label="Link to open DSS Url">
-        <span data-component-id="OrderId" class="mr-1 align-middle widget-order">{{headerWidgetOptions.orderId}}</span>
-        <span *ngIf="headerWidgetOptions?.button?.text" data-component-id="ButtonText" class="icon-text message-text">
-            {{headerWidgetOptions?.button?.text}}
-        </span>
-        <svg *ngIf="headerWidgetOptions?.button?.type === 'icon' && headerWidgetOptions?.button?.url && headerWidgetOptions?.button?.url !== '$session.params.ShipmentTrackingUrl'" data-component-id="IconButton" xmlns="http://www.w3.org/2000/svg" width="16"
-            height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z">
-            </path>
-            <path fill-rule="evenodd"
-                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z">
-            </path>
-        </svg>
+  <span
+    *ngIf="headerWidgetOptions?.orderId"
+    data-component-id="OrderIdLabel"
+    class="mr-1 align-middle"
+    >'order_TC'</span
+  >
+  <span>
+    <a
+      *ngIf="headerWidgetOptions?.button"
+      data-component-id="Button"
+      type="button"
+      [href]="getTrackingUrl(headerWidgetOptions?.button?.url)"
+      [target]="headerWidgetOptions?.button?.target"
+      class="widget-button"
+      aria-label="Link to open DSS Url"
+    >
+      <span
+        data-component-id="OrderId"
+        class="mr-1 align-middle widget-order"
+        >{{ headerWidgetOptions.orderId }}</span
+      >
+      <span
+        *ngIf="headerWidgetOptions?.button?.text"
+        data-component-id="ButtonText"
+        class="icon-text message-text"
+      >
+        {{ headerWidgetOptions?.button?.text }}
+      </span>
+      <svg
+        *ngIf="
+          headerWidgetOptions?.button?.type === 'icon' &&
+          headerWidgetOptions?.button?.url &&
+          headerWidgetOptions?.button?.url !==
+            '$session.params.ShipmentTrackingUrl'
+        "
+        data-component-id="IconButton"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-box-arrow-up-right"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
+        ></path>
+      </svg>
     </a>
-</span>
+  </span>
 </div>
