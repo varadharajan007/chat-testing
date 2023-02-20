@@ -183,7 +183,7 @@
                         *ngIf="setChipWidgetProps(widgetOptions?.options)"
                       ></div>
                     </ng-template>
-                    <ng-template [ngSwitchDefault]> </ng-template>
+                    <ng-template ngSwitchDefault> </ng-template>
                   </ng-container>
                 </ng-container>
               </div>
@@ -252,7 +252,7 @@
       <div class="container">
         <div class="message-reply-textarea border row justify-content-center">
           <textarea
-            placeholder="{{ 'messagePlaceholder_SC' | translate }}"
+            placeholder="{{ 'messagePlaceholder_SC' }}"
             [(ngModel)]="replyText"
             (keydown)="onKeyDown($event)"
             rows="1"
@@ -310,15 +310,4 @@
   </div>
 </div>
 
-<ng-template #errorPage>
-  <dss-brand-logo
-    data-component-id="DssChatErrorScreenHeader"
-    [config]="config"
-    *ngIf="isChatConfigLoaded"
-  ></dss-brand-logo>
-  <dss-error-page
-    data-component-id="DssChatErrorMessage"
-    [errorMessage]="errorMessage"
-    *ngIf="isChatConfigLoaded"
-  ></dss-error-page>
-</ng-template>
+<ng-template #errorPage> please check ur configuration </ng-template>
