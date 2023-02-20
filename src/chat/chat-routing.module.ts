@@ -3,14 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChatScreenComponent } from './chat-screen/chat-screen.component';
 
 import { ChatComponent } from './chat.component';
+import { ChatResolver } from './services/chat-resolver.service';
 
 const routes: Routes = [
-  { path: '', component: ChatComponent },
-  { path: 'dsschat' , component: ChatScreenComponent}
+  {
+    path: '',
+    component: ChatComponent,
+    resolve: {
+      isChatEnabled: ChatResolver,
+    },
+  },
+  { path: 'dsschat', component: ChatScreenComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ChatRoutingModule { }
+export class ChatRoutingModule {}

@@ -64,6 +64,7 @@ export class ChatComponent
   isChatConfigLoaded = false;
   sophiaChat: any;
   minimize = false;
+  isChatPropertyEnabled = false;
 
   constructor(
     private router: Router,
@@ -74,9 +75,12 @@ export class ChatComponent
     private chatservice: ChatService
   ) {
     this.queryParamSubscription = this.route.queryParams.subscribe((params) => {
-      this.token = params[ChatConstants.TOKEN];
+      this.token =
+        params[ChatConstants.TOKEN] || sessionStorage.getItem('token');
       this.mode = params[ChatConstants.MODE];
-      this.conversationId = params[ChatConstants.CONVERSATION_ID];
+      this.conversationId =
+        params[ChatConstants.CONVERSATION_ID] ||
+        sessionStorage.getItem('conversationId');
       this.registeredCustomerId = params[ChatConstants.REGISTERED_CUSTOMER_ID];
       this.locale = params['Locale'];
       this.orgId = params[ChatConstants.ORG_ID];
@@ -95,6 +99,14 @@ export class ChatComponent
     if (this.route?.snapshot?.data?.translate?.data) {
       this.staticData = this.route?.snapshot?.data?.translate?.data;
       this.route.snapshot.data.translate = this.staticData?.ResourceBundles;
+    }
+
+    if (this.route.data) {
+      this.route.data.subscribe((data) => {
+        if (data) {
+          this.isChatPropertyEnabled = data.isChatEnabled;
+        }
+      });
     }
   }
 
@@ -126,7 +138,7 @@ export class ChatComponent
     this.chatservice.getChatConfig(this.requestParam).subscribe(
       (response) => {
         this.chatBotConfigEnabled = response?.data?.EnableAssistant;
-        if (this.chatBotConfigEnabled) {
+        if (this.chatBotConfigEnabled && this.isChatPropertyEnabled) {
           this.loadConversations();
         } else {
           this.errorMessage = 'chatbotComingSoon_TC';

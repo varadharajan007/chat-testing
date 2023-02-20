@@ -54,6 +54,16 @@ export class ChatService {
       { headers, params }
     );
   }
+
+  public getComponentProperty(orgId: string): Observable<any> {
+    const headers = this.utilService.getHeader();
+    const requestParams: RequestParam = { orgId };
+    const params = this.utilService.getParam(requestParams);
+    return this.http.get(ServiceUrlConstants.GET_COMPONENT_PROPERTY, {
+      headers,
+      params,
+    });
+  }
 }
 
 export class RequestParam {
