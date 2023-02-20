@@ -22,7 +22,7 @@ import { ChatResolver } from '../chat/services/chat-resolver.service';
       {
         path: 'chat',
         component: ChatComponent,
-        resolver: {
+        resolve: {
           isChatEnabled: ChatResolver,
         },
       },
